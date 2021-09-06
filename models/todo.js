@@ -2,12 +2,16 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const todoSchema = new Schema({
+ id: {
+  type: String,
+  required: true
+ },
  todo: {
   type: String,
   required: true
  },
  date: {
-  type: Date,
+  type: String,
   required: true
  }
 });
