@@ -8,7 +8,7 @@ const Todo = require('../models/todo')
 // Anslutning till mongo db
 const dbURI = 'mongodb+srv://dbUser:Rada192270@calendar-todo-app.cgmxw.mongodb.net/calendar-todo?retryWrites=true&w=majority';
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then((result) => console.log('uppkopplad mot databasen')) // Kan behöva lägga in listen på servern istället för console.log så att man inte gör anrop innan db laddas
+  .then((result) => console.log('uppkopplad mot databasen'))
   .catch((err) => console.log(err, 'ERROR'));
 
 
@@ -16,9 +16,11 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 router.post('/add', (req, res, next) => {
   // Skapa en ny todo enligt modellen i mongoose
   const todo = new Todo({
+    id: req.body.id,
     todo: req.body.inputText,
     date: req.body.date
   })
+
   // Sparar todo till db
   todo.save().then((result) => {
     console.log(result, 'RESULT');
@@ -28,13 +30,20 @@ router.post('/add', (req, res, next) => {
   })
 })
 
-// // Get router för att hämta todos
-// router.get('/todos', (req, res, next) => {
+// Get router för att hämta todos
+router.get('/todos', (req, res, next) => {
 
-//   res.end();
-// })
+  Todo.find({}, (err, data) => {
+    if (err) {
+      console.log(err.message);
+    } else {
 
+      console.log(data);
 
+      res.json(data);
+    }
+  })
+})
 
 
 /* GET home page. */
