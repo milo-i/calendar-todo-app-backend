@@ -18,7 +18,8 @@ router.post('/add', (req, res, next) => {
   const todo = new Todo({
     id: req.body.id,
     todo: req.body.inputText,
-    date: req.body.date
+    date: req.body.date,
+    completed: false
   })
 
   // Sparar todo till db
@@ -37,13 +38,33 @@ router.get('/todos', (req, res, next) => {
     if (err) {
       console.log(err.message);
     } else {
-
-      console.log(data);
-
       res.json(data);
     }
   })
 })
+
+
+router.put('/completed', function (req, res, next) {
+
+  Todo.findOne({ id: req.body.id })
+    .exec()
+    .then(todo => {
+
+      if (todo.completed != req.body.completed) {
+        todo.completed = req.body.completed
+
+        todo.save();
+        res.status(200).json({
+          id: req.body.id,
+          completed: todo.completed
+        });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.json('error');
+    })
+});
 
 
 /* GET home page. */

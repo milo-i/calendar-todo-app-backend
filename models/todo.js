@@ -13,6 +13,10 @@ const todoSchema = new Schema({
  date: {
   type: String,
   required: true
+ },
+ completed: {
+  type: Boolean,
+  required: true
  }
 });
 
