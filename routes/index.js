@@ -38,11 +38,10 @@ router.get('/todos', (req, res, next) => {
     if (err) {
       console.log(err.message);
     } else {
-      res.json(data);
+      res.status(200).json(data);
     }
   })
 })
-
 
 router.put('/completed', function (req, res, next) {
 
@@ -55,8 +54,7 @@ router.put('/completed', function (req, res, next) {
 
         todo.save();
         res.status(200).json({
-          id: req.body.id,
-          completed: todo.completed
+          message: 'todo uppdaterad'
         });
       }
     })
