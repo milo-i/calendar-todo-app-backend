@@ -1,13 +1,14 @@
 var express = require('express');
 var router = express.Router();
 const cors = require('cors');
-const corsOptions = {
-  origin: 'https://react-calendar2021.herokuapp.com/.herokuapp.com',
-  optionsSuccessStatus: 200
-}
-router.use(cors(corsOptions));
+router.use(cors());
 const mongoose = require('mongoose');
 const Todo = require('../models/todo')
+
+router.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 
 // Anslutning till mongo db
 const dbURI = 'mongodb+srv://dbUser:Rada192270@calendar-todo-app.cgmxw.mongodb.net/calendar-todo?retryWrites=true&w=majority';
