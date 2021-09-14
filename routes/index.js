@@ -1,7 +1,11 @@
 var express = require('express');
 var router = express.Router();
 const cors = require('cors');
-router.use(cors());
+const corsOptions = {
+  origin: 'https://react-app-calendar2021.herokuapp.com',
+  optionsSuccessStatus: 200
+}
+router.use(cors(corsOptions));
 const mongoose = require('mongoose');
 const Todo = require('../models/todo')
 
