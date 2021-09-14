@@ -5,7 +5,7 @@ const corsOptions = {
   origin: 'https://react-app-calendar2021.herokuapp.com',
   optionsSuccessStatus: 200
 }
-router.use(cors(corsOptions));
+router.use(cors());
 const mongoose = require('mongoose');
 const Todo = require('../models/todo')
 
@@ -17,7 +17,7 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 
 // Post router för nya todos
-router.post('/add', (req, res, next) => {
+router.post('/add', cors(corsOptions), (req, res, next) => {
   // Skapa en ny todo enligt modellen i mongoose
   const todo = new Todo({
     id: req.body.id,
@@ -36,7 +36,7 @@ router.post('/add', (req, res, next) => {
 })
 
 // Get router för att hämta todos
-router.get('/todos', (req, res, next) => {
+router.get('/todos', cors(corsOptions), (req, res, next) => {
 
   Todo.find({}, (err, data) => {
     if (err) {
@@ -47,7 +47,7 @@ router.get('/todos', (req, res, next) => {
   })
 })
 
-router.put('/completed', function (req, res, next) {
+router.put('/completed', cors(corsOptions), function (req, res, next) {
 
   Todo.findOne({ id: req.body.id })
     .exec()
@@ -70,7 +70,7 @@ router.put('/completed', function (req, res, next) {
 
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', cors(corsOptions), function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
