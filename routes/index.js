@@ -5,10 +5,10 @@ router.use(cors());
 const mongoose = require('mongoose');
 const Todo = require('../models/todo')
 
-router.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
+// router.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   next();
+// });
 
 // Anslutning till mongo db
 const dbURI = 'mongodb+srv://dbUser:Rada192270@calendar-todo-app.cgmxw.mongodb.net/calendar-todo?retryWrites=true&w=majority';
